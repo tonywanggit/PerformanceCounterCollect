@@ -27,12 +27,12 @@ namespace PerformanceCounterCollect.Web.Controllers
         }
 
         private ServiceCounterRepository scRepository;
-        private ServiceCounterSnapshotRepository scSnapshotReposity;
+        //private ServiceCounterSnapshotRepository scSnapshotReposity;
 
         public DataCollectorController()
         {
             scRepository = new ServiceCounterRepository();
-            scSnapshotReposity = new ServiceCounterSnapshotRepository();
+            //scSnapshotReposity = new ServiceCounterSnapshotRepository();
             this._collectionName = "";
             this._connectionName = "MongoDB";
         }

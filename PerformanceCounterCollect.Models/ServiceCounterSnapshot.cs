@@ -5,7 +5,7 @@ namespace PerformanceCounterCollect.Models
 {
     public class ServiceCounterSnapshot : IConvertibleToBsonDocument
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         public ServiceCounter ServiceCounter { get; set; }
         public String MachineIP { get; set; }
