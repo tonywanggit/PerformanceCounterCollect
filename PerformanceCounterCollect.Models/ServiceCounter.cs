@@ -7,7 +7,7 @@ namespace PerformanceCounterCollect.Models
         public int Id { get; set; }
 
         public String ServiceName { get; set; }
-
+        public String MachineIP { get; set; }
         public String MachineName { get; set; }
         public String CategoryName { get; set; }
         public String CounterName { get; set; }

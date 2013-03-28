@@ -7,15 +7,23 @@ using System.Threading;
 using System.Threading.Tasks;
 using PerformanceCounterCollect.Models;
 using Topshelf.Logging;
+using System.Net.Sockets;
+using System.Net;
 
 namespace PerformanceCounterCollect.Services
 {
     sealed class ServiceMonitor
     {
+        public static readonly string MachineIP = string.Join(" / ", Dns.GetHostAddresses(Dns.GetHostName())
+              .Where(a => a.AddressFamily == AddressFamily.InterNetwork).Select(add => add.ToString()).ToArray());
+
+        public static readonly string MachineName = Environment.MachineName;
+
         public const int SleepIntervalInMilliSecs = 50000;
 
         private readonly LogWriter logger = HostLogger.Get<ServiceMonitor>();
         private IList<Tuple<int, PerformanceCounter>> serviceCounters;
+        private IList<ServiceCounter> serviceCounterList;
 
         public void Monitor(object state)
         {
@@ -38,7 +46,7 @@ namespace PerformanceCounterCollect.Services
                         var snapshot = new ServiceCounterSnapshot();
                         snapshot.CreationTimeUtc = timeStamp;
                         snapshot.SnapshotMachineName = machineName;
-                        snapshot.ServiceCounterId = serviceCounters[i].Item1;
+                        snapshot.ServiceCounter = serviceCounterList.First(x=>x.Id == serviceCounters[i].Item1);
                         try
                         {
                             snapshot.ServiceCounterValue = serviceCounters[i].Item2.NextValue();
@@ -66,8 +74,9 @@ namespace PerformanceCounterCollect.Services
             try
             {
                 var counters = new List<Tuple<int, PerformanceCounter>>();
+                serviceCounterList = PerfmonClient.SelectServiceCounter(machineName).ToList();
 
-                foreach (var counter in PerfmonClient.SelectServiceCounter(machineName))
+                foreach (var counter in serviceCounterList)
                 {
                     logger.InfoFormat(@"Creating performance counter: {0}\{1}\{2}\{3}", counter.MachineName ?? ".", counter.CategoryName,
                                         counter.CounterName, counter.InstanceName);

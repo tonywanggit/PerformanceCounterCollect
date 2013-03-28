@@ -49,6 +49,7 @@ GO
 CREATE TABLE [dbo].[service_counters](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[ServiceName] [varchar](100) NOT NULL,
+	[MachineIP] [varchar](50) NULL,
 	[MachineName] [varchar](100) NULL,
 	[CategoryName] [varchar](100) NOT NULL,
 	[CounterName] [varchar](100) NOT NULL,

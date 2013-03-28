@@ -43,6 +43,14 @@
       <HintPath>..\packages\Dapper.1.12.1\lib\net40\Dapper.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="MongoDB.Bson, Version=1.8.0.124, Culture=neutral, PublicKeyToken=f686731cfb9cc103, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\mongocsharpdriver.1.8.0\lib\net35\MongoDB.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver, Version=1.8.0.124, Culture=neutral, PublicKeyToken=f686731cfb9cc103, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\mongocsharpdriver.1.8.0\lib\net35\MongoDB.Driver.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -131,6 +139,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\BaseRepository.cs" />
+    <Compile Include="Models\IRepository.cs" />
+    <Compile Include="Models\MongoRepository.cs" />
     <Compile Include="Models\ServiceCounterRepository.cs" />
     <Compile Include="Models\ServiceCounterSnapshotRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
