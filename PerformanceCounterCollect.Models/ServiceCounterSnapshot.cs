@@ -26,7 +26,6 @@ namespace PerformanceCounterCollect.Models
 				{ "SnapshotMachineName", this.SnapshotMachineName},
 				{ "ServiceCounterValue", this.ServiceCounterValue},
 				{ "CreationTimeUtc", this.CreationTimeUtc},
-                { "SnapshotMachineName",this.SnapshotMachineName },
                 { "MachineIP", this.MachineIP},
                 { "MachineName",this.MachineName }
 			};

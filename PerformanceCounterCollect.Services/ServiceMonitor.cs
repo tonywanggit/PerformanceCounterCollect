@@ -19,7 +19,7 @@ namespace PerformanceCounterCollect.Services
 
         public static readonly string MachineName = Environment.MachineName;
 
-        public const int SleepIntervalInMilliSecs = 50000;
+        public const int SleepIntervalInMilliSecs = 60000;
 
         private readonly LogWriter logger = HostLogger.Get<ServiceMonitor>();
         private IList<Tuple<int, PerformanceCounter>> serviceCounters;
@@ -46,9 +46,11 @@ namespace PerformanceCounterCollect.Services
                         var snapshot = new ServiceCounterSnapshot();
                         snapshot.CreationTimeUtc = timeStamp;
                         snapshot.SnapshotMachineName = machineName;
+                        snapshot.MachineIP = ServiceMonitor.MachineIP;
                         snapshot.ServiceCounter = serviceCounterList.First(x=>x.Id == serviceCounters[i].Item1);
                         try
                         {
+                            snapshot.ServiceCounter.MachineIP = ServiceMonitor.MachineIP;
                             snapshot.ServiceCounterValue = serviceCounters[i].Item2.NextValue();
                             logger.DebugFormat("Performance counter {0} read value: {1}", GetPerfCounterPath(serviceCounters[i].Item2),
                                                 snapshot.ServiceCounterValue);
